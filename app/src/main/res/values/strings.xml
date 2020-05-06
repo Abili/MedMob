@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">MedMob</string>
+    <string name="register">register</string>
+    <string name="emergency">Emergency</string>
+
+    <string-array name="departments">
+        <item>Surgery</item>
+        <item>RadioTherapy</item>
+        <item>Breast Screening</item>
+        <item>Burn center</item>
+        <item>Cardilogy</item>
+        <item>Coronary care unit</item>
+        <item>Gastroenterology</item>
+        <item>Gynocology</item>
+        <item>Infection control</item>
+        <item>Maternity</item>
+        <item>Microbilology</item>
+    </string-array>
+
+</resources>
