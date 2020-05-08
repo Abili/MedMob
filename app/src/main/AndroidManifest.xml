@@ -4,15 +4,16 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/medmod_icon"
+        android:icon="@drawable/medmob_icon"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/medmod_icon"
+        android:roundIcon="@drawable/medmob_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OptionsPage"></activity>
+        <activity android:name=".AwaitingPage"></activity>
+        <activity android:name=".OptionsPage" />
         <activity android:name=".LookForDoctor" />
-        <activity android:name=".SignUpDoctors" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".SignUpDoctors">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         applicationId "com.raisac.medmob"
-        minSdkVersion 26
-        targetSdkVersion 26
+        minSdkVersion 28
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 
@@ -32,9 +32,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    implementation 'com.google.android.gms:play-services-ads:19.0.0'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
 }
