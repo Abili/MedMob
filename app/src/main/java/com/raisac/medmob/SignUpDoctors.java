@@ -5,10 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Calendar;
 
 public class SignUpDoctors extends AppCompatActivity {
 
@@ -16,8 +20,11 @@ public class SignUpDoctors extends AppCompatActivity {
     private ProgressBar mProgressBar;
     private String[] mDep;
     private ArrayAdapter<String> mMedmodDepartments;
-    private Spinner mDepartments;
-    private ArrayAdapter<String> mAdapterDepartments;
+    private Spinner mDepartments, mExperience;
+    private String[] mExp;
+    private String[] age;
+    private String[] mAge;
+    private Spinner mAgeSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +33,12 @@ public class SignUpDoctors extends AppCompatActivity {
         mSignUpDoctor = findViewById(R.id.doctor_registerBtn);
         mProgressBar = findViewById(R.id.progressBar);
         mDepartments = findViewById(R.id.spinner_department);
+        mAgeSpinner = findViewById(R.id.spinner_age);
+        mExperience = findViewById(R.id.spinner_experience);
 
         populateDepartment();
-
+        populateExperience();
+        populateAge();
         mSignUpDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,13 +48,45 @@ public class SignUpDoctors extends AppCompatActivity {
         });
     }
 
+
     private void populateDepartment() {
         Resources department = getResources();
         mDep = department.getStringArray(R.array.departments);
-        mAdapterDepartments = new ArrayAdapter<>(
+        ArrayAdapter<String> adapterDepartments = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, mDep);
-        mDepartments.setAdapter(mAdapterDepartments);
-        mAdapterDepartments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mDepartments.setAdapter(adapterDepartments);
+        adapterDepartments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+    }
+
+    private void populateExperience() {
+        Resources experinece = getResources();
+        mExp = experinece.getStringArray(R.array.experience);
+        ArrayAdapter<String> adapterExperince = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item, mExp);
+        mExperience.setAdapter(adapterExperince);
+        adapterExperince.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+    }
+    private void populateAge() {
+        Resources age = getResources();
+        mAge = age.getStringArray(R.array.age);
+        ArrayAdapter<String> adapterAge = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item, mAge);
+        mAgeSpinner.setAdapter(adapterAge);
+        adapterAge.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+    }
+
+    public void dateOfBirth(View view) {
+        DatePicker DofBirth = new DatePicker(this);
+        int month = DofBirth.getMonth();
+        int date =DofBirth.getDayOfMonth();
+        int year =DofBirth.getYear();
+
+        Calendar.Builder calendar = new Calendar.Builder();
+        Calendar.Builder dateOfbirth = calendar.setDate(date, month, year);
+        EditText edDoB = findViewById(R.id.dateOfBirth);
+        edDoB.setText(dateOfbirth.toString());
     }
 }
