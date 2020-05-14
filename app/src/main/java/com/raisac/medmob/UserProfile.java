@@ -132,6 +132,7 @@ public class UserProfile extends AppCompatActivity implements
     private byte[] mBytes;
     private double progress;
     FirebaseAuth mAuth;
+    boolean isButtonEnabled = !mSave.isEnabled();
 
 
 
@@ -219,42 +220,44 @@ public class UserProfile extends AppCompatActivity implements
     }
 
     public void signUpDoc(View view) {
+        if(isButtonEnabled) {
 
-        if (!fName.getText().toString().equals("")) {
-            mReference.child(mUid).child("users")
-                    //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .child("fName")
-                    .setValue(fName.getText().toString());
-        }
-        if (!lName.getText().toString().equals("")) {
-            mReference.child(mUid).child("users")
-                    //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .child("lName")
-                    .setValue(lName.getText().toString());
-        }
-        if (!nAge.getText().toString().equals("")) {
-            mReference.child(mUid).child("users")
-                    //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .child("age")
-                    .setValue(nAge.getText().toString());
-        }
-        if (!nDateofBirth.getText().toString().equals("")) {
-            mReference.child(mUid).child("users")
-                    //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .child("mDateOfBirth")
-                    .setValue(nDateofBirth.getText().toString());
-        }
-        if (!nExperience.getSelectedItem().toString().equals("")) {
-            mReference.child(mUid).child("users")
-                    //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .child("mExperience")
-                    .setValue(nExperience.getSelectedItem().toString());
-        }
-        if (!nDepartments.getSelectedItem().toString().equals("")) {
-            mReference.child(mUid).child("users")
-                    //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .child("mDepartment")
-                    .setValue(nDepartments.getSelectedItem().toString());
+            if (!fName.getText().toString().equals("")) {
+                mReference.child(mUid).child("users")
+                        //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child("fName")
+                        .setValue(fName.getText().toString());
+            }
+            if (!lName.getText().toString().equals("")) {
+                mReference.child(mUid).child("users")
+                        //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child("lName")
+                        .setValue(lName.getText().toString());
+            }
+            if (!nAge.getText().toString().equals("")) {
+                mReference.child(mUid).child("users")
+                        //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child("age")
+                        .setValue(nAge.getText().toString());
+            }
+            if (!nDateofBirth.getText().toString().equals("")) {
+                mReference.child(mUid).child("users")
+                        //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child("mDateOfBirth")
+                        .setValue(nDateofBirth.getText().toString());
+            }
+            if (!nExperience.getSelectedItem().toString().equals("")) {
+                mReference.child(mUid).child("users")
+                        //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child("mExperience")
+                        .setValue(nExperience.getSelectedItem().toString());
+            }
+            if (!nDepartments.getSelectedItem().toString().equals("")) {
+                mReference.child(mUid).child("users")
+                        //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child("mDepartment")
+                        .setValue(nDepartments.getSelectedItem().toString());
+            }
         }
 
 
@@ -267,13 +270,6 @@ public class UserProfile extends AppCompatActivity implements
 
     }
 
-
-    private void upDateUi(String firstName, String lastName, String age1,
-                          String date_of_birth, String deparment, String exprience) {
-
-        Users user = new Users(fName.getText().toString()/*, null, lastName, age1, date_of_birth, deparment, exprience*/);
-        mReference.child("users").child(mUid).setValue(user);
-    }
 
     private void getPhotos() {
 
