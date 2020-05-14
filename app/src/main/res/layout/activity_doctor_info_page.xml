@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DoctorInfoPage">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:textColor="@color/colorPrimaryDark"
+                android:id="@+id/nationId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Attach National Id"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@android:color/white"
+                android:id="@+id/browseId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginRight="20dp"
+                android:text="Browse" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:textColor="@color/colorPrimaryDark"
+                android:id="@+id/license"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Attach National Id"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@android:color/white"
+                android:id="@+id/browseLisence"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginRight="20dp"
+                android:text="Browse" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:textColor="@color/colorPrimaryDark"
+                android:id="@+id/institutionDocs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Attach National Id"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@android:color/white"
+                android:id="@+id/browseInstitutionDocs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginRight="20dp"
+                android:text="Browse" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:textColor="@color/colorPrimaryDark"
+                android:id="@+id/aLevelDocs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Attach National Id"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@android:color/white"
+                android:id="@+id/browseAlevelDocs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginRight="20dp"
+                android:text="Browse" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:textSize="@dimen/text_size"
+        android:textStyle="bold"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@android:color/white"
+        android:layout_marginRight="40dp"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="40dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:text="submit" />
+</LinearLayout>
