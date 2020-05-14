@@ -9,11 +9,13 @@
         android:roundIcon="@drawable/medmob_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AwaitingPage"></activity>
+        <activity android:name=".DoctorInfoPage"></activity>
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".OptionsPage" />
         <activity android:name=".LookForDoctor" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".SignUpDoctors">
+        <activity android:name=".AwaitingPage" />
+        <activity android:name=".UserProfile">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

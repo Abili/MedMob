@@ -4,7 +4,7 @@
     <string name="emergency">Emergency</string>
 
     <string-array name="departments">
-        <item>Select department</item>
+        <item>Department</item>
         <item>Surgery</item>
         <item>RadioTherapy</item>
         <item>Breast Screening</item>
@@ -19,19 +19,12 @@
     </string-array>
 
     <string-array name="experience">
-        <item>Select years of experience</item>
+        <item>Experience</item>
         <item>0–1 year</item>
         <item>2–4 years</item>
         <item>5 years and Above</item>
     </string-array>
 
-    <string-array name="age">
-        <item>Select your age</item>
-        <item>18–25 year</item>
-        <item>26–30 years</item>
-        <item>31–40</item>
-        <item>41–50</item>
-        <item>50 and above</item>
-    </string-array>
+
 
 </resources>

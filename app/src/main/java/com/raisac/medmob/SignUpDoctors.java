@@ -1,8 +1,11 @@
 package com.raisac.medmob;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -25,6 +28,7 @@ public class SignUpDoctors extends AppCompatActivity {
     private String[] age;
     private String[] mAge;
     private Spinner mAgeSpinner;
+    private EditText mEdDoB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +37,10 @@ public class SignUpDoctors extends AppCompatActivity {
         mSignUpDoctor = findViewById(R.id.doctor_registerBtn);
         mProgressBar = findViewById(R.id.progressBar);
         mDepartments = findViewById(R.id.spinner_department);
-        mAgeSpinner = findViewById(R.id.spinner_age);
         mExperience = findViewById(R.id.spinner_experience);
 
         populateDepartment();
         populateExperience();
-        populateAge();
         mSignUpDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,25 +70,27 @@ public class SignUpDoctors extends AppCompatActivity {
         adapterExperince.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
     }
-    private void populateAge() {
-        Resources age = getResources();
-        mAge = age.getStringArray(R.array.age);
-        ArrayAdapter<String> adapterAge = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_item, mAge);
-        mAgeSpinner.setAdapter(adapterAge);
-        adapterAge.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-    }
 
     public void dateOfBirth(View view) {
-        DatePicker DofBirth = new DatePicker(this);
-        int month = DofBirth.getMonth();
-        int date =DofBirth.getDayOfMonth();
-        int year =DofBirth.getYear();
+        Calendar calendar = Calendar.getInstance();
+        int month = calendar.get(calendar.MONTH);
+        int date = calendar.get(calendar.DAY_OF_MONTH);
+        int year = calendar.get(calendar.YEAR);
 
-        Calendar.Builder calendar = new Calendar.Builder();
-        Calendar.Builder dateOfbirth = calendar.setDate(date, month, year);
-        EditText edDoB = findViewById(R.id.dateOfBirth);
-        edDoB.setText(dateOfbirth.toString());
+        //create date picker dialog;
+        DatePickerDialog pickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                mEdDoB = findViewById(R.id.dateOfBirth);
+                mEdDoB.setText(String.format("%d/%d/%d", dayOfMonth, month, year));
+
+            }
+        }, year, month, date);
+        pickerDialog.show();
     }
-}
+
+
+    }
+
+

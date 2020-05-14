@@ -5,28 +5,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SignUpDoctors">
+    tools:context=".UserProfile">
 
+    <ScrollView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:orientation="vertical">
 
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/doctor_pic"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
+        <FrameLayout
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="35dp"
-            android:src="@drawable/medmob_icon"
-            app:civ_border_color="#000000"
-            app:civ_border_width="2dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/doctor_pic"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="35dp"
+                android:src="@drawable/medmob_pic_1"
+
+               />
+
+            <ImageView
+                android:id="@+id/change_upload_profile"
+                android:layout_gravity="bottom|right"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:src="@drawable/camera" />
+        </FrameLayout>
 
         <EditText
             android:id="@+id/doctor_Fname"
@@ -56,7 +67,6 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:onClick="dateOfBirth"
             android:id="@+id/dateOfBirth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,17 +74,25 @@
             android:ems="10"
             android:hint="Date of birth (17/02/1890)"
             android:inputType="textPersonName"
+            android:onClick="dateOfBirth"
             android:paddingLeft="20dp"
             android:textColorHint="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <Spinner
-            android:id="@+id/spinner_age"
+        <EditText
+            android:id="@+id/age"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="20dp" />
+            android:layout_marginTop="35dp"
+            android:ems="10"
+            android:hint="Age"
+            android:inputType="textPersonName"
+            android:paddingLeft="20dp"
+            android:textColorHint="@color/colorPrimaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/doctor_pic" />
 
         <Spinner
             android:id="@+id/spinner_department"
@@ -104,8 +122,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
+    </ScrollView>
 
     <Button
+        android:onClick="signUpDoc"
         android:id="@+id/doctor_registerBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
