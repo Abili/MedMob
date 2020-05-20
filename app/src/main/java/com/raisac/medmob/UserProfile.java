@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -34,7 +33,6 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,7 +40,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.auth.User;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
@@ -132,8 +129,7 @@ public class UserProfile extends AppCompatActivity implements
     private byte[] mBytes;
     private double progress;
     FirebaseAuth mAuth;
-    boolean isButtonEnabled = !mSave.isEnabled();
-
+    //boolean isButtonEnabled = !Objects.requireNonNull(mSave).isEnabled();
 
 
     @Override
@@ -220,45 +216,60 @@ public class UserProfile extends AppCompatActivity implements
     }
 
     public void signUpDoc(View view) {
-        if(isButtonEnabled) {
-
-            if (!fName.getText().toString().equals("")) {
-                mReference.child(mUid).child("users")
-                        //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child("fName")
-                        .setValue(fName.getText().toString());
-            }
-            if (!lName.getText().toString().equals("")) {
-                mReference.child(mUid).child("users")
-                        //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child("lName")
-                        .setValue(lName.getText().toString());
-            }
-            if (!nAge.getText().toString().equals("")) {
-                mReference.child(mUid).child("users")
-                        //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child("age")
-                        .setValue(nAge.getText().toString());
-            }
-            if (!nDateofBirth.getText().toString().equals("")) {
-                mReference.child(mUid).child("users")
-                        //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child("mDateOfBirth")
-                        .setValue(nDateofBirth.getText().toString());
-            }
-            if (!nExperience.getSelectedItem().toString().equals("")) {
-                mReference.child(mUid).child("users")
-                        //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child("mExperience")
-                        .setValue(nExperience.getSelectedItem().toString());
-            }
-            if (!nDepartments.getSelectedItem().toString().equals("")) {
-                mReference.child(mUid).child("users")
-                        //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child("mDepartment")
-                        .setValue(nDepartments.getSelectedItem().toString());
-            }
+        if (!fName.getText().toString().equals("")) {
+            mReference.child("users")
+                    .child("doctors")
+                    .child(mUid)
+                    //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .child("fName")
+                    .setValue(fName.getText().toString());
         }
+        if (!lName.getText().toString().equals("")) {
+            mReference
+                    .child("users")
+                    .child("doctors")
+                    .child(mUid)
+                    //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .child("lName")
+                    .setValue(lName.getText().toString());
+        }
+        if (!nAge.getText().toString().equals("")) {
+            mReference
+                    .child("users")
+                    .child("doctors")
+                    .child(mUid)
+                    //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .child("age")
+                    .setValue(nAge.getText().toString());
+        }
+        if (!nDateofBirth.getText().toString().equals("")) {
+            mReference
+                    .child("users")
+                    .child("doctors")
+                    .child(mUid)
+                    //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .child("mDateOfBirth")
+                    .setValue(nDateofBirth.getText().toString());
+        }
+        if (!nExperience.getSelectedItem().toString().equals("")) {
+            mReference
+                    .child("users")
+                    .child("doctors")
+                    .child(mUid)
+                    //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .child("mExperience")
+                    .setValue(nExperience.getSelectedItem().toString());
+        }
+        if (!nDepartments.getSelectedItem().toString().equals("")) {
+            mReference
+                    .child("users")
+                    .child("doctors")
+                    .child(mUid)
+                    //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .child("mDepartment")
+                    .setValue(nDepartments.getSelectedItem().toString());
+        }
+
 
 
         /*------ Upload the New Photo -----*/
@@ -443,8 +454,9 @@ public class UserProfile extends AppCompatActivity implements
                     Toast.makeText(UserProfile.this, "Upload Success", Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "onSuccess: firebase dowgetDownloadUrlnload url : " + uri.toString());
                     FirebaseDatabase.getInstance().getReference()
-                            .child(mUid)
                             .child("users")
+                            .child("doctors")
+                            .child(mUid)
 //                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .child("profile_pics")
                             .setValue(uri.toString());
@@ -471,27 +483,30 @@ public class UserProfile extends AppCompatActivity implements
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-        reference.child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //this loop will return a single result
-                Users users = dataSnapshot.getValue(Users.class);
+        reference.child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
+                .child("users")
+                .child("doctors")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        //this loop will return a single result
+                        Users users = dataSnapshot.getValue(Users.class);
 //                Log.d(TAG, "onDataChange: (QUERY METHOD 1) found user: "
 //                        + users.toString());
 
-                fName.setText(users.getfName());
-                lName.setText(users.getlName());
-                nAge.setText(users.getAge());
-                // Glide.with(UserProfile.this).load(users.getphotoUrl()).into(mProfileImage);
-                ImageLoader.getInstance().displayImage(users.getProfile_pics(), mProfileImage);
-            }
+                        fName.setText(users.getfName());
+                        lName.setText(users.getlName());
+                        nAge.setText(users.getAge());
+                        // Glide.with(UserProfile.this).load(users.getphotoUrl()).into(mProfileImage);
+                        ImageLoader.getInstance().displayImage(users.getProfile_pics(), mProfileImage);
+                    }
 
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                    }
+                });
     }
 
 
