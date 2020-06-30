@@ -368,7 +368,7 @@ public class UserProfile extends AppCompatActivity implements
         protected void onPreExecute() {
             super.onPreExecute();
             showDialog();
-            Toast.makeText(UserProfile.this, "compressing image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserProfile.this, "Uploading...", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -419,11 +419,12 @@ public class UserProfile extends AppCompatActivity implements
     }
 
     private void executeUploadTask() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         showDialog();
         FilePaths filePaths = new FilePaths();
-//specify where the photo will be stored
+        //specify where the photo will be stored
         final StorageReference storageReference = FirebaseStorage.getInstance().getReference()
-                .child(filePaths.FIREBASE_IMAGE_STORAGE + "/" + FirebaseAuth.getInstance().getCurrentUser().getUid()
+                .child(filePaths.FIREBASE_IMAGE_STORAGE + "/" + userId
                         + "/profile_image"); //just replace the old image with the new one
 
         if (mBytes.length / MB < MB_THRESHHOLD) {
@@ -441,8 +442,7 @@ public class UserProfile extends AppCompatActivity implements
                     .setCustomMetadata("location", "Iceland")
                     .build();
             //if the image size is valid then we can submit to database
-            UploadTask uploadTask = null;
-            uploadTask = storageReference.putBytes(mBytes, metadata);
+            UploadTask uploadTask = storageReference.putBytes(mBytes, metadata);
             //uploadTask = storageReference.putBytes(mBytes); //without metadata
 
             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

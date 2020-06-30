@@ -43,7 +43,6 @@ public class LookForDoctor extends AppCompatActivity {
                 /*
                  * get the location of the patient and triangulate it to search for a close by
                  * doctor that matches the patient' information of what they are suffering from
-
                  */
 
             }
