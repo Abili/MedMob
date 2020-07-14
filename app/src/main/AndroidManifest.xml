@@ -27,8 +27,8 @@
         <activity android:name=".OptionsPage" />
         <activity android:name=".LookForDoctor" />
         <activity android:name=".AwaitingPage" />
-        <activity android:name=".UserProfile" />
-        <activity android:name=".Profile" />
+        <activity android:name=".Auths.UserProfile" />
+        <activity android:name=".Auths.Profile" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

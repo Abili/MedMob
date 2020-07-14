@@ -1,4 +1,4 @@
-package com.raisac.medmob;
+package com.raisac.medmob.Auths;
 
 import android.Manifest;
 import android.app.Activity;
@@ -46,6 +46,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.raisac.medmob.Dialogs.ChangePhotoDialog;
+import com.raisac.medmob.FirebaseUtils.FilePaths;
+import com.raisac.medmob.MainActivity;
+import com.raisac.medmob.R;
+import com.raisac.medmob.Models.Users;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
