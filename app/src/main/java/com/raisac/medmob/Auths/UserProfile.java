@@ -1,4 +1,4 @@
-package com.raisac.medmob;
+package com.raisac.medmob.Auths;
 
 import android.Manifest;
 import android.app.Activity;
@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -34,7 +33,6 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,13 +40,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.auth.User;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.raisac.medmob.Dialogs.ChangePhotoDialog;
+import com.raisac.medmob.FirebaseUtils.FilePaths;
+import com.raisac.medmob.MainActivity;
+import com.raisac.medmob.R;
+import com.raisac.medmob.Models.Users;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -132,7 +134,7 @@ public class UserProfile extends AppCompatActivity implements
     private byte[] mBytes;
     private double progress;
     FirebaseAuth mAuth;
-
+    //boolean isButtonEnabled = !Objects.requireNonNull(mSave).isEnabled();
 
 
     @Override
@@ -219,43 +221,60 @@ public class UserProfile extends AppCompatActivity implements
     }
 
     public void signUpDoc(View view) {
-
         if (!fName.getText().toString().equals("")) {
-            mReference.child(mUid).child("users")
+            mReference.child("users")
+                    .child("doctors")
+                    .child(mUid)
                     //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                     .child("fName")
                     .setValue(fName.getText().toString());
         }
         if (!lName.getText().toString().equals("")) {
-            mReference.child(mUid).child("users")
+            mReference
+                    .child("users")
+                    .child("doctors")
+                    .child(mUid)
                     //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                     .child("lName")
                     .setValue(lName.getText().toString());
         }
         if (!nAge.getText().toString().equals("")) {
-            mReference.child(mUid).child("users")
+            mReference
+                    .child("users")
+                    .child("doctors")
+                    .child(mUid)
                     //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                     .child("age")
                     .setValue(nAge.getText().toString());
         }
         if (!nDateofBirth.getText().toString().equals("")) {
-            mReference.child(mUid).child("users")
+            mReference
+                    .child("users")
+                    .child("doctors")
+                    .child(mUid)
                     //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                     .child("mDateOfBirth")
                     .setValue(nDateofBirth.getText().toString());
         }
         if (!nExperience.getSelectedItem().toString().equals("")) {
-            mReference.child(mUid).child("users")
+            mReference
+                    .child("users")
+                    .child("doctors")
+                    .child(mUid)
                     //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                     .child("mExperience")
                     .setValue(nExperience.getSelectedItem().toString());
         }
         if (!nDepartments.getSelectedItem().toString().equals("")) {
-            mReference.child(mUid).child("users")
+            mReference
+                    .child("users")
+                    .child("doctors")
+                    .child(mUid)
                     //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                     .child("mDepartment")
                     .setValue(nDepartments.getSelectedItem().toString());
         }
+
 
 
         /*------ Upload the New Photo -----*/
@@ -267,13 +286,6 @@ public class UserProfile extends AppCompatActivity implements
 
     }
 
-
-    private void upDateUi(String firstName, String lastName, String age1,
-                          String date_of_birth, String deparment, String exprience) {
-
-        Users user = new Users(fName.getText().toString()/*, null, lastName, age1, date_of_birth, deparment, exprience*/);
-        mReference.child("users").child(mUid).setValue(user);
-    }
 
     private void getPhotos() {
 
@@ -361,7 +373,7 @@ public class UserProfile extends AppCompatActivity implements
         protected void onPreExecute() {
             super.onPreExecute();
             showDialog();
-            Toast.makeText(UserProfile.this, "compressing image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserProfile.this, "Uploading...", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -412,11 +424,12 @@ public class UserProfile extends AppCompatActivity implements
     }
 
     private void executeUploadTask() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         showDialog();
         FilePaths filePaths = new FilePaths();
-//specify where the photo will be stored
+        //specify where the photo will be stored
         final StorageReference storageReference = FirebaseStorage.getInstance().getReference()
-                .child(filePaths.FIREBASE_IMAGE_STORAGE + "/" + FirebaseAuth.getInstance().getCurrentUser().getUid()
+                .child(filePaths.FIREBASE_IMAGE_STORAGE + "/" + userId
                         + "/profile_image"); //just replace the old image with the new one
 
         if (mBytes.length / MB < MB_THRESHHOLD) {
@@ -434,8 +447,7 @@ public class UserProfile extends AppCompatActivity implements
                     .setCustomMetadata("location", "Iceland")
                     .build();
             //if the image size is valid then we can submit to database
-            UploadTask uploadTask = null;
-            uploadTask = storageReference.putBytes(mBytes, metadata);
+            UploadTask uploadTask = storageReference.putBytes(mBytes, metadata);
             //uploadTask = storageReference.putBytes(mBytes); //without metadata
 
             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -447,8 +459,9 @@ public class UserProfile extends AppCompatActivity implements
                     Toast.makeText(UserProfile.this, "Upload Success", Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "onSuccess: firebase dowgetDownloadUrlnload url : " + uri.toString());
                     FirebaseDatabase.getInstance().getReference()
-                            .child(mUid)
                             .child("users")
+                            .child("doctors")
+                            .child(mUid)
 //                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .child("profile_pics")
                             .setValue(uri.toString());
@@ -475,27 +488,30 @@ public class UserProfile extends AppCompatActivity implements
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-        reference.child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //this loop will return a single result
-                Users users = dataSnapshot.getValue(Users.class);
+        reference.child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
+                .child("users")
+                .child("doctors")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        //this loop will return a single result
+                        Users users = dataSnapshot.getValue(Users.class);
 //                Log.d(TAG, "onDataChange: (QUERY METHOD 1) found user: "
 //                        + users.toString());
 
-                fName.setText(users.getfName());
-                lName.setText(users.getlName());
-                nAge.setText(users.getAge());
-                // Glide.with(UserProfile.this).load(users.getphotoUrl()).into(mProfileImage);
-                ImageLoader.getInstance().displayImage(users.getProfile_pics(), mProfileImage);
-            }
+                        fName.setText(users.getfName());
+                        lName.setText(users.getlName());
+                        nAge.setText(users.getAge());
+                        // Glide.with(UserProfile.this).load(users.getphotoUrl()).into(mProfileImage);
+                        ImageLoader.getInstance().displayImage(users.getProfile_pics(), mProfileImage);
+                    }
 
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                    }
+                });
     }
 
 

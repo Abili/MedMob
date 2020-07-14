@@ -1,4 +1,4 @@
-package com.raisac.medmob;
+package com.raisac.medmob.Auths;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -14,6 +14,8 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.raisac.medmob.R;
 
 import java.util.Calendar;
 

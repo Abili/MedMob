@@ -1,4 +1,4 @@
-package com.raisac.medmob;
+package com.raisac.medmob.Models;
 
 public class Users {
     public String fName;

@@ -1,4 +1,4 @@
-package com.raisac.medmob;
+package com.raisac.medmob.Dialogs;
 
 
 import android.content.Context;
@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.raisac.medmob.R;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import static android.app.Activity.RESULT_OK;

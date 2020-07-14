@@ -6,9 +6,16 @@ android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
 
+    android {
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+    }
+
     defaultConfig {
         applicationId "com.raisac.medmob"
-        minSdkVersion 28
+        minSdkVersion 25
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -21,6 +28,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
     }
 
 }
@@ -54,4 +65,14 @@ dependencies {
 
     implementation 'com.jakewharton:butterknife:10.2.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
+
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.libraries.places:places:2.2.0'
+
+    implementation 'com.firebase:geofire-android:3.0.0'
+    implementation 'com.github.jd-alexander:library:1.1.0'
+
+    implementation 'com.google.android.material:material:1.0.0'
+
+    implementation "com.android.support:support-compat:28.0.0"
 }
