@@ -6,6 +6,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.raisac.medmob.data.local.MedMobDatabase
+import com.raisac.medmob.data.repository.AuthRepositoryImpl
+import com.raisac.medmob.data.security.SecureStorage
+import com.raisac.medmob.domain.repository.AuthRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,4 +48,15 @@ object AppModule {
             .fallbackToDestructiveMigration()
             .build()
     }
+
+    @Provides
+    @Singleton
+    fun provideAuthRepository(
+        firebaseAuth: FirebaseAuth,
+        firebaseDatabase: FirebaseDatabase,
+        secureStorage: SecureStorage
+    ): AuthRepository {
+        return AuthRepositoryImpl(firebaseAuth, firebaseDatabase, secureStorage)
+    }
 }
+
